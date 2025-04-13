@@ -7,7 +7,6 @@ This is the frontend/UI of Suggestion - an OpenAI GPT 3.5 LLM-powered web applic
 - [Technologies Used](#technologies-used)
 - [Usage](#usage)
 - [Setup](#setup)
-- [Future Developments](#future-developments)
 - [Contact](#contact)
 
 ## Technologies Used
