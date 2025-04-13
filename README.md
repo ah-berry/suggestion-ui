@@ -1,6 +1,6 @@
 # Suggestion - UI
 
-This is the frontend/UI of Suggestion - an OpenAI GPT 3.5 LLM-powered web application that suggests helpful mental health guidance for a hypothetical patient facing challenge(s) [_Suggestion_](https://suggestion-ui.vercel.app/). The user interface is a simple text prompt where a user can enter what troubles their patient is facing and a response is returned.
+This is the frontend/UI of Suggestion - an OpenAI GPT 3.5 LLM-powered web application that suggests helpful mental health guidance for a hypothetical patient facing challenge(s) ([_Suggestion_])(https://suggestion-ui.vercel.app/). The user interface is a simple text prompt where a user can enter what troubles their patient is facing and a response is returned.
 
 ## Table of Contents
 
