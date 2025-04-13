@@ -56,6 +56,7 @@ export default function HomePage() {
       setResponseMessage(data.responseContent);
     } catch (error) {
       setResponseMessage("Something went wrong. Please try again.");
+      setIsLoading(false);
       setStepType("userMessageResponse");
     }
   };
