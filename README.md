@@ -35,4 +35,4 @@ To setup the application, [_npm_](https://docs.npmjs.com/downloading-and-install
 
 ## Contact
 
-The application was created by yours truly! Feel free to follow me on [_LinkedIn_](https://www.linkedin.com/in/ahmed-gorashi-546447b5/) and let me know if you liked using Found!
+The application was created by yours truly! Feel free to follow me on [_LinkedIn_](https://www.linkedin.com/in/ahmed-gorashi-546447b5/) and let me know if you liked using Suggestion!
