@@ -1,31 +1,68 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
 import { Textarea, Button, Stack } from "@chakra-ui/react";
 import { Spinner } from "@chakra-ui/react";
+import ReactMarkdown from "react-markdown";
 
 export default function HomePage() {
   const [userMessage, setUserMessage] = React.useState<string>("");
   const [stepType, setStepType] = React.useState<string>("userMessageEntry");
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [playgroundData, setPlaygroundData] = React.useState<string>("");
+  const [responseMessage, setResponseMessage] = React.useState<string>("");
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setIsLoading(true);
-
-    // Mimic waittime response from an async API call as a timeout
-    setTimeout(() => {
-      setPlaygroundData(
-        "I understand your patient's challenge and here are some steps to prevent.",
+    try {
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_SUGGESTION_API_LAMBDA_FUNCTION_URL || "",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_message: userMessage,
+          }),
+        },
       );
-      setStepType("userMessageResponse");
+
+      // Attempted streaming chunck but didn't fully implement
+      // const reader = response.body?.getReader();
+      // const decoder = new TextDecoder("utf-8");
+
+      // if (!reader) {
+      //   throw new Error("Reader not available from response body.");
+      // }
+
+      // const read = async () => {
+      //   console.log("Read called");
+      //   const { done, value } = await reader.read();
+      //   console.log(done, value);
+      //   if (done) {
+      //     return;
+      //   }
+
+      //   const chunk = decoder.decode(value);
+      //   console.log("chunk");
+      //   console.log(chunk);
+      //   setResponseMessage((prev) => prev + chunk);
+      // };
+      // await read();
+
+      const data = await response.json();
       setIsLoading(false);
-    }, 2000);
+      setStepType("userMessageResponse");
+      setResponseMessage(data.responseContent);
+    } catch (error) {
+      setResponseMessage("Something went wrong. Please try again.");
+      setStepType("userMessageResponse");
+    }
   };
 
   const handleReturn = () => {
-    setPlaygroundData("");
+    setUserMessage("");
+    setResponseMessage("");
     setStepType("userMessageEntry");
   };
 
@@ -68,7 +105,7 @@ export default function HomePage() {
             Suggestion
           </h1>
           <div>
-            <p>{playgroundData}</p>
+            <ReactMarkdown>{responseMessage}</ReactMarkdown>
           </div>
           <div>
             <Stack align="center">
