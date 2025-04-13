@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { Textarea, Button, Stack } from "@chakra-ui/react";
+import { Textarea, Button, Stack, Text } from "@chakra-ui/react";
 import { Spinner } from "@chakra-ui/react";
 import ReactMarkdown from "react-markdown";
+import { Toaster, toaster } from "../components/ui/toaster";
 
 export default function HomePage() {
   const [userMessage, setUserMessage] = React.useState<string>("");
@@ -12,6 +13,14 @@ export default function HomePage() {
   const [responseMessage, setResponseMessage] = React.useState<string>("");
 
   const handleSubmit = async () => {
+    if (!userMessage) {
+      toaster.create({
+        title: "Please input a message.",
+        duration: 1700,
+        type: "error",
+      });
+      return;
+    }
     setIsLoading(true);
     try {
       const response = await fetch(
@@ -75,11 +84,12 @@ export default function HomePage() {
 
       return (
         <>
-          <h1 className="text-5xl font-extrabold tracking-tight text-black sm:text-[5rem]">
+          <Text className="!sm:text-[5rem] !motion-opacity-in-0 !motion-translate-y-in-100 !motion-blur-in-md !motion-duration-[2s] !text-5xl !font-extrabold !tracking-tight !text-black">
             What challenge is your patient facing?
-          </h1>
-          <div>
+          </Text>
+          <div className="!w-full !max-w-lg">
             <Textarea
+              className="!motion-opacity-in-0 !motion-translate-y-in-100 !motion-blur-in-md !motion-duration-[2s] !w-full !rounded-xl !border-2 !border-solid !p-4 !text-lg focus:!ring-2 focus:!ring-green-400 focus:!outline-none"
               placeholder="Ask me anything..."
               onChange={(e) => setUserMessage(e.target.value)}
             />
@@ -87,7 +97,7 @@ export default function HomePage() {
           <div>
             <Stack align="center">
               <Button
-                colorPalette="green"
+                className="!motion-opacity-in-0 !motion-translate-y-in-100 !motion-blur-in-md !motion-duration-[2s] !bg-[#286446] !text-white"
                 rounded="full"
                 onClick={handleSubmit}
               >
@@ -102,15 +112,16 @@ export default function HomePage() {
     if (stepType === "userMessageResponse") {
       return (
         <>
-          <h1 className="text-5xl font-extrabold tracking-tight text-black sm:text-[5rem]">
+          <Text className="!sm:text-[5rem] !motion-opacity-in-0 !motion-translate-y-in-100 !motion-blur-in-md !motion-duration-[2s] !text-5xl !font-extrabold !tracking-tight !text-black">
             Suggestion
-          </h1>
+          </Text>
           <div>
             <ReactMarkdown>{responseMessage}</ReactMarkdown>
           </div>
           <div>
             <Stack align="center">
               <Button
+                className="!motion-opacity-in-0 !motion-translate-y-in-100 !motion-blur-in-md !motion-duration-[2s] !bg-[#286446] !text-white"
                 colorPalette="green"
                 rounded="full"
                 onClick={handleReturn}
@@ -131,6 +142,7 @@ export default function HomePage() {
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
         {renderSteps()}
       </div>
+      <Toaster />
     </main>
   );
 }

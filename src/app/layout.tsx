@@ -3,8 +3,7 @@
 import "~/styles/globals.css";
 
 import React from "react";
-// import { Provider } from "../components/ui/provider";
-import Provider from "./provider";
+import { Provider } from "../components/ui/provider";
 
 export default function RootLayout({
   children,
